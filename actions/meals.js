@@ -1,6 +1,7 @@
 "use server";
 
 import { createMeal } from "@/lib/meals";
+import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
 function invalidText(text) {
@@ -33,5 +34,6 @@ export async function shareMealAction(previousState,formData) {
   }
   
   await createMeal(meal);
+  revalidatePath('/meals')
   redirect("/meals");
 }
